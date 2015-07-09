@@ -22,13 +22,13 @@ class Customer(models.Model):
     name = models.CharField(max_length=40)
     email = models.EmailField()
     address = models.ForeignKey(Address)
-    telephone = models.IntegerField(max_length=10)
+    telephone = models.CharField(max_length=10)
     user = models.OneToOneField(User)
 
 
 class Owner(models.Model):
     name = models.CharField(max_length=40)
-    telephone = models.IntegerField(max_length=10)
+    telephone = models.CharField(max_length=10)
     user = models.OneToOneField(User)
 
 
@@ -36,7 +36,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(Owner)
     address = models.OneToOneField(Address)
-    telephone = models.IntegerField(max_length=10)
+    telephone = models.CharField(max_length=10)
 
 
 class Order(models.Model):
