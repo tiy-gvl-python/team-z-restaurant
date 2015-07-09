@@ -3,7 +3,7 @@
 {% block body %}
     <form method=POST>
         {% csrf_token %}
-        {{ form.username }}
-        <input type="submit" name="login"/>
+        {{ form }}
+        <input type="submit" name="register"/>
     </form>
 {% endblock %}
