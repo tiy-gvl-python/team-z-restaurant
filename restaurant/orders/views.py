@@ -68,3 +68,4 @@ def registration_view(request):
             return redirect("login")
     return render_to_response("registration/create_user.html", context,
                               context_instance=RequestContext(request))
+
