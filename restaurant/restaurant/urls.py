@@ -16,8 +16,15 @@ Including another URLconf
 
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+from orders import views
 
 urlpatterns = [
+    url(r'^registration/', CreateView.as_view(
+        template_name='registration/create_user.html',
+        form_class=UserCreationForm,
+        success_url='/'), name="registration"),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', HomeView, name="home")
+    url(r'^$', views.home_view, name="home"),
 ]
