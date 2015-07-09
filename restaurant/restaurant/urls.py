@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^menu/$', views.MenuListView.as_view(), name="menu_list"),
     url(r'^menu/(?P<pk>\d+)/$', views.MenuDetailView.as_view(), name='menu_detail'),
+    url(r'^$', HomeView, name="home")
 ]

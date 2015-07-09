@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from .models import FoodItem
@@ -19,3 +19,6 @@ class MenuDetailView(DetailView):
     model = FoodItem
     template_name = 'menu_detail_view.html'
 
+
+def HomeView(request):
+    return render_to_response("base.html", )
