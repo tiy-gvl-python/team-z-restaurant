@@ -15,26 +15,28 @@ class Order(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     instructions = models.CharField(max_length=100, blank=True)
 
+
 class Address(models.Model):
-    line_1 = models.CharField(max_length=30)
-    line_2 = models.CharField(max_length=30)
+    line_1 = models.CharField(max_length=100)
+    line_2 = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
-    street = models.CharField(max_length=30)
     zipcode = models.CharField(max_length=5)
     plus_4 = models.CharField(max_length=4)
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=30)
-    email = models.EmailField() #  customize the arguments
+    name = models.CharField(max_length=40)
+    email = models.EmailField()
     address = models.ForeignKey(Address)
     telephone = models.IntegerField(max_length=10)
     user = models.OneToOneField(User)
 
+
 class Owner(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=40)
     telephone = models.IntegerField(max_length=10)
     user = models.OneToOneField(User)
+
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=50)
