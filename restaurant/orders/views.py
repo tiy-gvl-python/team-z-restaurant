@@ -1,6 +1,8 @@
 from django.shortcuts import render, render_to_response
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
+from django.template import RequestContext
+
 from .models import FoodItem
 
 
@@ -20,5 +22,5 @@ class MenuDetailView(DetailView):
     template_name = 'menu_detail_view.html'
 
 
-def HomeView(request):
-    return render_to_response("base.html", )
+def home_view(request):
+    return render_to_response("base.html", context_instance=RequestContext(request))
