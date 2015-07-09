@@ -21,6 +21,9 @@ A restaurant service coordinator.
 #### Owner
 * Predictions
 * Specials
+* Coupons
+* Locations
+* Mobile CSS
 
 #### Customer
 * Customization
