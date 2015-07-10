@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, render_to_response
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
@@ -6,9 +7,10 @@ from django.template import RequestContext
 from .models import MenuItem
 
 
-class CreateMenuItem(CreateView):
+class CreateMenuItemView(CreateView):
     model = MenuItem
-    success_url = ''
+    template_name = 'create_menu_item.html'
+    success_url = reverse_lazy("menu_list")
     fields = ["title", "description", "price"]
 
 

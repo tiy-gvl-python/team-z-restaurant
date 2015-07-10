@@ -36,4 +36,5 @@ urlpatterns = [
         kwargs={"template_name": "login.html", "redirect_field_name": "redirect"}),
     url(r'^logout/$', logout, name='logout',
         kwargs={'next_page': '/'}),
+    url(r'^create_menu_item/', views.CreateMenuItemView.as_view(), name='create_menu_item'),
 ]
