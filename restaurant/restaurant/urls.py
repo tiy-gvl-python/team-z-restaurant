@@ -16,7 +16,10 @@ Including another URLconf
 
 from django.conf.urls import include, url
 from django.contrib import admin
+from orders import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^menu/$', views.MenuListView.as_view(), name="menu_list"),
+    url(r'^menu/(?P<pk>\d+)/$', views.MenuDetailView.as_view(), name='menu_detail'),
 ]

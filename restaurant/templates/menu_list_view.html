@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h3>Menu</h3>
+{% endblock %}
+
+{% block body %}
+    {% for food in object_list %}
+        <a href="{% url 'menu_detail' food.pk %}">{{ food.title }}</a>
+    {% endfor %}
+{% endblock %}
