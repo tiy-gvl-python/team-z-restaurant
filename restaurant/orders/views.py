@@ -1,5 +1,4 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, render_to_response, redirect
 from django.views.generic import ListView, DetailView
@@ -60,7 +59,12 @@ def registration_view(request):
             valid = False
             context["errors"].append("Invalid address.")
         if valid:
-            return redirect("home")
-        #user = User(username=request.POST.username)
+            user = user_form.save()
+            address = address_form.save()
+            customer = customer_form.save(commit=False)
+            customer.address = address
+            customer.user = user
+            customer.save()
+            return redirect("login")
     return render_to_response("registration/create_user.html", context,
                               context_instance=RequestContext(request))
