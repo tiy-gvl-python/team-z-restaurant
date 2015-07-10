@@ -18,7 +18,7 @@ class MenuItem(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    menu_parts = models.CharField(max_length=20, choices=MENU_CHOICES)
+    menu_parts = models.CharField(max_length=20, choices=MENU_CHOICES, default=APPETIZER, blank=True)
 
 
 class Address(models.Model):
