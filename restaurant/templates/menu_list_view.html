@@ -11,5 +11,9 @@
             {% csrf_token %}
             <button type="submit">Delete</button>
         </form>
+        <form method="get" action="{% url 'update_menu_item' food.pk %}">
+            {% csrf_token %}
+            <button type="submit">Update</button>
+        </form>
     {% endfor %}
 {% endblock %}

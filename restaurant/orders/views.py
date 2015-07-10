@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render_to_response
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
 
 from .models import MenuItem
@@ -17,6 +17,14 @@ class CreateMenuItemView(CreateView):
 class DeleteMenuItemView(DeleteView):
     model = MenuItem
     success_url = reverse_lazy('menu_list')
+
+
+class UpdateMenuItemView(UpdateView):
+    model = MenuItem
+    template_name = "update_menu_item.html"
+    fields = ["title", "description", "price", "menu_parts"]
+    success_url = reverse_lazy('menu_list')
+
 
 class MenuListView(ListView):
     model = MenuItem

@@ -37,5 +37,6 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout',
         kwargs={'next_page': '/'}),
     url(r'^create_menu_item/', views.CreateMenuItemView.as_view(), name='create_menu_item'),
-    url(r'^delete_menu_item/(?P<pk>\d+)/', views.DeleteMenuItemView.as_view(), name='delete_menu_item')
+    url(r'^delete_menu_item/(?P<pk>\d+)/', views.DeleteMenuItemView.as_view(), name='delete_menu_item'),
+    url(r'^update_menu_item/(?P<pk>\d+)/', views.UpdateMenuItemView.as_view(), name='update_menu_item')
 ]
