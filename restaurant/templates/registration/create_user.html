@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    {% for error in errors %}
+        <div>{{ error }}</div>
+    {% endfor %}
     <form method=POST>
         {% csrf_token %}
-        {{ form }}
+        {{ user_form }}
+        {{ customer_form }}
+        {{ address_form }}
         <input type="submit" name="register"/>
     </form>
 {% endblock %}

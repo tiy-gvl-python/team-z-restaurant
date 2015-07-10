@@ -21,12 +21,13 @@ from django.contrib.auth.views import login, logout
 from django.views.generic import CreateView
 
 from orders import views
+from orders.forms import CustomerForm
 
 urlpatterns = [
-    url(r'^registration/',
-        CreateView.as_view(template_name="registration/create_user.html",
-                           form_class=UserCreationForm,
-                           success_url='/'),
+    url(r'^register/', views.registration_view,
+        #CreateView.as_view(template_name="registration/create_user.html",
+         #                  form_class=CustomerForm,
+          #                 success_url='/'),
         name="registration"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^menu/$', views.MenuListView.as_view(), name="menu_list"),
