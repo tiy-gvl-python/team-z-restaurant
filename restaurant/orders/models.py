@@ -23,11 +23,11 @@ class MenuItem(models.Model):
 
 class Address(models.Model):
     line_1 = models.CharField(max_length=100)
-    line_2 = models.CharField(max_length=100)
+    line_2 = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=2)
     zipcode = models.CharField(max_length=5)
-    plus_4 = models.CharField(max_length=4)
+    plus_4 = models.CharField(max_length=4, blank=True)
 
 
 class Customer(models.Model):
