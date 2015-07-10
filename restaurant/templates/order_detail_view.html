@@ -5,5 +5,7 @@
 {% endblock %}
 
 {% block body %}
-   {%  %}
+   {% for food_item in object.food_item.all %}
+       <div>{{ food_item.title }}</div>
+   {% endfor %}
 {% endblock %}
