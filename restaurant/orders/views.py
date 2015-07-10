@@ -18,3 +18,4 @@ class MenuListView(ListView):
 class MenuDetailView(DetailView):
     model = FoodItem
     template_name = 'menu_detail_view.html'
+

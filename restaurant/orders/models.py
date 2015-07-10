@@ -7,7 +7,7 @@ from django.db import models
 class FoodItem(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100, blank=True)
-    price = models.DecimalField(max_digits=3, decimal_places=2)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
 
 
 class Address(models.Model):
@@ -43,4 +43,3 @@ class Order(models.Model):
     food_item = models.ManyToManyField(FoodItem)
     restaurant = models.ForeignKey(Restaurant)
     instructions = models.CharField(max_length=100, blank=True)
-
