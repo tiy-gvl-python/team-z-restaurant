@@ -7,5 +7,9 @@
 {% block body %}
     {% for food in object_list %}
         <a href="{% url 'menu_detail' food.pk %}">{{ food.title }}</a>
+        <form method="POST" action="{% url 'delete_menu_item' food.pk %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
     {% endfor %}
 {% endblock %}

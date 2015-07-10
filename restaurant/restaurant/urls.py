@@ -18,8 +18,8 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import login, logout
-from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView
+
 from orders import views
 
 urlpatterns = [
@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout',
         kwargs={'next_page': '/'}),
     url(r'^create_menu_item/', views.CreateMenuItemView.as_view(), name='create_menu_item'),
+    url(r'^delete_menu_item/(?P<pk>\d+)/', views.DeleteMenuItemView.as_view(), name='delete_menu_item')
 ]
