@@ -77,3 +77,5 @@ class OrderListView(ListView):
 class OrderDetailView(DetailView):
     model = Order
     template_name = 'order_detail_view.html'
+
+

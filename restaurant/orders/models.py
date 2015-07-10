@@ -103,7 +103,9 @@ class Restaurant(models.Model):
 
 
 class Order(models.Model):
-    food_item = models.ManyToManyField(MenuItem)
+    user_item = models.ManyToManyField(MenuItem)
     restaurant = models.ForeignKey(Restaurant)
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
+
+class 
