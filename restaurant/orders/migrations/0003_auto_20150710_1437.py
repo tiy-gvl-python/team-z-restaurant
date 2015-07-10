@@ -11,7 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+
         migrations.CreateModel(
+
             name='MenuItem',
             fields=[
                 ('id', models.AutoField(primary_key=True, auto_created=True, serialize=False, verbose_name='ID')),
@@ -19,6 +21,11 @@ class Migration(migrations.Migration):
                 ('description', models.CharField(max_length=100, blank=True)),
                 ('price', models.DecimalField(decimal_places=2, max_digits=6)),
             ],
+        ),
+        migrations.AlterField(
+            model_name='order',
+            name='food_item',
+            field=models.ManyToManyField(to='orders.MenuItem'),
         ),
         migrations.DeleteModel(
             name='FoodItem',
@@ -28,10 +35,5 @@ class Migration(migrations.Migration):
             name='customer',
             field=models.ForeignKey(default=1, to='orders.Customer'),
             preserve_default=False,
-        ),
-        migrations.AlterField(
-            model_name='order',
-            name='food_item',
-            field=models.ManyToManyField(to='orders.MenuItem'),
         ),
     ]
