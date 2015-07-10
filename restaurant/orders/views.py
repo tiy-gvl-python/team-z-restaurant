@@ -11,7 +11,7 @@ class CreateMenuItemView(CreateView):
     model = MenuItem
     template_name = 'create_menu_item.html'
     success_url = reverse_lazy("menu_list")
-    fields = ["title", "description", "price"]
+    fields = ["title", "description", "price", "menu_parts"]
 
 
 class MenuListView(ListView):
