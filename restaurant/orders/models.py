@@ -4,10 +4,10 @@ from django.db import models
 
 # Create your models here.
 
-class FoodItem(models.Model):
+class MenuItem(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100, blank=True)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
 
 
 class Address(models.Model):
@@ -43,3 +43,4 @@ class Order(models.Model):
     food_item = models.ManyToManyField(FoodItem)
     restaurant = models.ForeignKey(Restaurant)
     instructions = models.CharField(max_length=100, blank=True)
+    customer = models.ForeignKey(Customer)
