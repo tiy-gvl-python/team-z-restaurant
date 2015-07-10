@@ -3,22 +3,22 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView
 from django.template import RequestContext
 
-from .models import FoodItem
+from .models import MenuItem
 
 
 class CreateMenuItem(CreateView):
-    model = FoodItem
+    model = MenuItem
     success_url = ''
     fields = ["title", "description", "price"]
 
 
 class MenuListView(ListView):
-    model = FoodItem
+    model = MenuItem
     template_name = 'menu_list_view.html'
 
 
 class MenuDetailView(DetailView):
-    model = FoodItem
+    model = MenuItem
     template_name = 'menu_detail_view.html'
 
 
