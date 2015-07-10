@@ -4,9 +4,8 @@ from django.shortcuts import render, render_to_response, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
-
-from .models import MenuItem
 from orders.forms import CustomerForm, AddressForm
+from .models import MenuItem, Order
 
 
 class CreateMenuItemView(CreateView):
@@ -68,4 +67,14 @@ def registration_view(request):
             return redirect("login")
     return render_to_response("registration/create_user.html", context,
                               context_instance=RequestContext(request))
+
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'order_list_view.html'
+
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'order_detail_view.html'
 
