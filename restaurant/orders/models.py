@@ -108,4 +108,4 @@ class Order(models.Model):
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
 
-class 
+class
