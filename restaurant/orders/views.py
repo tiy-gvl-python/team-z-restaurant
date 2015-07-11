@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
 from orders.forms import CustomerForm, AddressForm
-from .models import MenuItem, Order
+from .models import MenuItem, Order, CartOption
 
 
 class CreateMenuItemView(CreateView):
@@ -100,7 +100,7 @@ class UpdateOrderView(UpdateView):
 
 class CartOptionUpdateView(UpdateView):
     model = CartOption
-    template_name = "update_order_list.html"
+    template_name = "update_cart_option_view.html"
     fields = ["menu_item", "order", "count"]
     success_url = reverse_lazy('order_list')
 

@@ -39,5 +39,5 @@ urlpatterns = [
     url(r'^create_order_view/$', views.CreateOrderView.as_view(), name='create_order'),
     url(r'^delete_order_view/(?P<pk>\d+)/', views.DeleteOrderView.as_view(), name='delete_order'),
     url(r'^update_order_view/(?P<pk>\d+)/', views.UpdateOrderView.as_view(), name='update_order'),
-    url(r'^update_cart_option_view/(?P<pk>\d+)/', views.CartOptionUpdateView.as_view(), name='update_cart_options'),
+    url(r'^cart_option_update_view/(?P<pk>\d+)/', views.CartOptionUpdateView.as_view(), name='update_cart_options'),
 ]
