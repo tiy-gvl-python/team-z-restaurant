@@ -5,10 +5,19 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
 from .models import MenuItem, Order, CartOption
+from orders.decorators import require_owner
 from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
 
 
-class CreateMenuItemView(CreateView):
+class RequireOwnerMixin:
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(RequireOwnerMixin, cls).as_view(**initkwargs)
+        return require_owner(view)
+
+
+
+class CreateMenuItemView(RequireOwnerMixin, CreateView):
     model = MenuItem
     template_name = 'create_menu_item.html'
     success_url = reverse_lazy("menu_list")
@@ -105,6 +114,7 @@ class CartOptionUpdateView(UpdateView):
     success_url = reverse_lazy('order_list')
 
 
+@require_owner
 def owner_registration_view(request):
     context = {"user_form": UserCreationForm, "owner_form": OwnerForm, "errors": []}
     if request.POST:
