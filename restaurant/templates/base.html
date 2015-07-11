@@ -14,7 +14,9 @@
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'register' %}">Register</a>
 {% endif %}
+{% if user.owner %}
 <a href="{% url 'create_menu_item' %}">Update-Menu</a>
+{% endif %}
 <a href="{% url 'order_list' %}">Order-List</a>
 <a href="{% url 'create_order' %}">Create-Order</a>
 
