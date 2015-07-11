@@ -4,7 +4,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
-from .models import MenuItem, Order, CartOption
+from .models import MenuItem, Order, CartOption, Owner, Restaurant
 from orders.decorators import require_owner
 from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
 
@@ -154,3 +154,38 @@ def restaurant_creation_view(request):
             restaurant.save()
     return render_to_response('restaurant_creation.html', context=context,
                               context_instance=RequestContext(request))
+
+
+class OwnerListView(ListView):
+    model = Owner
+    template_name = "owner_list.html"
+
+
+class UpdateOwnerView(UpdateView):
+    model = Owner
+    template_name = "update_owner.html"
+    fields = ["name", "telephone", "email"]
+    success_url = reverse_lazy('owner_list')
+
+
+class OwnerDetailView(DetailView):
+    model = Owner
+    template_name = "owner_detail.html"
+
+
+class RestaurantListView(ListView):
+    model = Restaurant
+    template_name = "restaurant_list.html"
+
+
+class UpdateRestaurantView(UpdateView):
+    model = Restaurant
+    template_name = "update_restaurant.html"
+    fields = ["name", "telephone", "email"]
+    success_url = reverse_lazy('owner_list')
+
+
+class RestaurantDetailView(DetailView):
+    model = Restaurant
+    template_name = "restaurant_detail.html"
+

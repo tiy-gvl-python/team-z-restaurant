@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h3>Item Details</h3>
+{% endblock %}
+
+{% block body %}
+    <h1>Name: {{ object.name }}</h1>
+    <p>Telephone: {{ object.telephone }}</p>
+    <p>Username: {{ object.user.username }}</p>
+{% endblock %}

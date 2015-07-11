@@ -42,4 +42,10 @@ urlpatterns = [
     url(r'^cart_option_update_view/(?P<pk>\d+)/', views.CartOptionUpdateView.as_view(), name='update_cart_options'),
     url(r'^register/owner$', views.owner_registration_view, name='owner_registration'),
     url(r'^create_restaurant/', views.restaurant_creation_view, name='create_restaurant'),
+    url(r'^owners/$', views.OwnerListView.as_view(), name="owner_list"),
+    url(r'^owners/(?P<pk>\d+)/', views.OwnerDetailView.as_view(), name="owner_detail"),
+    url(r'^owners/update/(?P<pk>\d+)/', views.UpdateOwnerView.as_view(), name="update_owner"),
+    url(r'^restaurants/$', views.RestaurantListView.as_view(), name="restaurant_list"),
+    url(r'^restaurants/(?P<pk>\d+)/', views.RestaurantDetailView.as_view(), name="restaurant_detail"),
+    url(r'^restaurants/update/(?P<pk>\d+)/', views.UpdateRestaurantView.as_view(), name="update_restaurant"),
 ]
