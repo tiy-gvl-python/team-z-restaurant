@@ -15,7 +15,9 @@
     <a href="{% url 'register' %}">Register</a>
 {% endif %}
 {% if user.owner %}
-<a href="{% url 'create_menu_item' %}">Update-Menu</a>
+    <a href="{% url 'create_menu_item' %}">Update-Menu</a>
+    <a href="{% url 'create_restaurant' %}">Create Restaurant</a>
+    <a href="{% url 'owner_registration' %}">Create Owner</a>
 {% endif %}
 <a href="{% url 'order_list' %}">Order-List</a>
 <a href="{% url 'create_order' %}">Create-Order</a>
