@@ -1,6 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from orders.models import Customer, Address
+from orders.models import Customer, Address, Owner, Restaurant
 
 
 class CustomerForm(forms.ModelForm):
@@ -15,3 +14,17 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         exclude = []
+
+
+class OwnerForm(forms.ModelForm):
+
+    class Meta:
+        model = Owner
+        exclude = ["user"]
+
+
+class RestaurantForm(forms.ModelForm):
+
+    class Meta:
+        model = Restaurant
+        exclude = ["address"]
