@@ -47,5 +47,11 @@ urlpatterns = [
     url(r'^create_restaurant/', views.restaurant_creation_view, name='create_restaurant'),
     url(r'^profile/', views.CustomerProfileView.as_view(), name='customer_profile'),
     url(r'^user_list/$', views.CustomerListView.as_view(), name='customer_list'),
-    url(r'^user_list/(?P<pk>\d+)/$', views.CustomerDetailView.as_view(), name='customer_detail')
+    url(r'^user_list/(?P<pk>\d+)/$', views.CustomerDetailView.as_view(), name='customer_detail'),
+    url(r'^owners/$', views.OwnerListView.as_view(), name="owner_list"),
+    url(r'^owners/(?P<pk>\d+)/', views.OwnerDetailView.as_view(), name="owner_detail"),
+    url(r'^owners/update/(?P<pk>\d+)/', views.UpdateOwnerView.as_view(), name="update_owner"),
+    url(r'^restaurants/$', views.RestaurantListView.as_view(), name="restaurant_list"),
+    url(r'^restaurants/(?P<pk>\d+)/', views.RestaurantDetailView.as_view(), name="restaurant_detail"),
+    url(r'^restaurants/update/(?P<pk>\d+)/', views.UpdateRestaurantView.as_view(), name="update_restaurant"),
 ]

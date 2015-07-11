@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h3>Restaurant Details</h3>
+{% endblock %}
+
+{% block body %}
+    <h1>Name: {{ object.name }}</h1>
+    <p>Telephone: {{ object.telephone }}</p>
+    <p>Owner: {{ object.owner.name }}</p>
+    <p>Address:</p>
+    <p> {{ object.address.line_1 }}</p>
+    {% if object.address.line_2 %}
+        <p>{{ object.address.line_2 }}</p>
+    {% endif %}
+    <p>{{ object.address.city }}, {{ object.address.state }} {{ object.address.zipcode }}</p>
+{% endblock %}

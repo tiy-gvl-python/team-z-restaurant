@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h3>Restaurants</h3>
+{% endblock %}
+
+{% block body %}
+    {% for restaurant in object_list %}
+        <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.name }}</a>
+        <form method="get" action="{% url 'update_restaurant' restaurant.pk %}">
+            {% csrf_token %}
+            <button type="submit">Update</button>
+        </form>
+    {% endfor %}
+{% endblock %}
