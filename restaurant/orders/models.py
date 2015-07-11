@@ -102,7 +102,13 @@ class Restaurant(models.Model):
 
 
 class Order(models.Model):
-    menu_item = models.ManyToManyField(MenuItem)
+    menu_item = models.ManyToManyField(MenuItem, through="CartOption")
     restaurant = models.ForeignKey(Restaurant)
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
+
+
+class CartOption(models.Model):
+    menu_item = models.ForeignKey(MenuItem)
+    order = models.ForeignKey(Order)
+    count = models.IntegerField(default=1)
