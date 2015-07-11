@@ -13,11 +13,7 @@
         </form>
         <form method="get" action="{% url 'update_order' order.id %}">
             {% csrf_token %}
-            <button type="submit">Update</button>
-        </form>
-        <form method="get" action="{% url 'update_cart_options' order.id %}">
-            {% csrf_token %}
-            <button type="submit">Cart Options</button>
+            <button type="submit">Update Order Details</button>
         </form>
     {% endfor %}
 {% endblock %}

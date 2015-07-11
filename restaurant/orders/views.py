@@ -110,7 +110,19 @@ class CartOptionUpdateView(UpdateView):
     model = CartOption
     template_name = "update_cart_option_view.html"
     fields = ["menu_item", "order", "count"]
+    success_url = reverse_lazy('order_detail')
+
+
+class CartOptionCreateView(CreateView):
+    model = CartOption
+    template_name = "create_cart_option_view.html"
+    fields = ["menu_item", "order", "count"]
     success_url = reverse_lazy('order_list')
+
+
+class CartOptionDeleteView(DeleteView):
+    model = CartOption
+    success_url = reverse_lazy('order_detail')
 
 
 @require_owner

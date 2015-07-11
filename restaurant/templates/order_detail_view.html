@@ -5,7 +5,20 @@
 {% endblock %}
 
 {% block body %}
+
+   <form method="get" action="{% url 'create_cart_options' %}">
+            {% csrf_token %}
+            <button type="submit">Add Item</button>
+   </form>
    {% for menu_item in object.menu_item.all %}
-       <div>{{ menu_item.title }}</div>
+       <div>{{ menu_item.title }} {{ menu_item.count }}</div>
+       <form method="get" action="{% url 'update_cart_options' menu_item.id %}">
+                {% csrf_token %}
+                <button type="submit">Edit Item</button>
+       </form>
+       <form method="POST" action="{% url 'delete_cart_options' menu_item.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete Item</button>
+        </form>
    {% endfor %}
 {% endblock %}
