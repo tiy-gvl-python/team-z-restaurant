@@ -16,7 +16,6 @@ class RequireOwnerMixin:
         return require_owner(view)
 
 
-
 class CreateMenuItemView(RequireOwnerMixin, CreateView):
     model = MenuItem
     template_name = 'create_menu_item.html'
