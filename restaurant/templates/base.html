@@ -5,8 +5,12 @@
 {% load bootstrap3 %}
 
 {% block bootstrap3_content %}
+
     <div class="container">
-        <h1>{% block title %}Restaurant{% endblock %}</h1>
+        <h1>
+            {% block title %}Restaurant{% endblock %}
+
+        </h1>
 
         <p>
             <a href="{% url "home" %}">Home</a>
