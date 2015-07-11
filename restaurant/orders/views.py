@@ -4,8 +4,8 @@ from django.shortcuts import render, render_to_response, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
-from orders.forms import CustomerForm, AddressForm
 from .models import MenuItem, Order, CartOption
+from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
 
 
 class CreateMenuItemView(CreateView):
@@ -105,5 +105,43 @@ class CartOptionUpdateView(UpdateView):
     success_url = reverse_lazy('order_list')
 
 
+def owner_registration_view(request):
+    context = {"user_form": UserCreationForm, "owner_form": OwnerForm, "errors": []}
+    if request.POST:
+        valid = True
+        user_form = UserCreationForm(request.POST)
+        owner_form = OwnerForm(request.POST)
+        if not user_form.is_valid():
+            valid = False
+            context["errors"].append("Invalid Username or Password.")
+        if not owner_form.is_valid():
+            valid = False
+            context["errors"].append("Invalid Name, Telephone or Email.")
+        if valid:
+            user = user_form.save()
+            owner = owner_form.save(commit=False)
+            owner.user = user
+            owner.save()
+    return render_to_response('owner_registration.html', context=context,
+                              context_instance=RequestContext(request))
 
 
+def restaurant_creation_view(request):
+    context = {"restaurant_form": RestaurantForm, "address_form": AddressForm, "errors": []}
+    if request.POST:
+        valid = True
+        restaurant_form = RestaurantForm(request.POST)
+        address_form = AddressForm(request.POST)
+        if not restaurant_form.is_valid():
+            valid = False
+            context["errors"].append("Invalid Name or Telephone.")
+        if not address_form.is_valid():
+            valid = False
+            context["errors"].append("Invalid address.")
+        if valid:
+            address = address_form.save()
+            restaurant = restaurant_form.save(commit=False)
+            restaurant.address = address
+            restaurant.save()
+    return render_to_response('restaurant_creation.html', context=context,
+                              context_instance=RequestContext(request))

@@ -21,7 +21,7 @@ from django.contrib.auth.views import login, logout
 from orders import views
 
 urlpatterns = [
-    url(r'^register/', views.registration_view,
+    url(r'^register/$', views.registration_view,
         name="register"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^menu/$', views.MenuListView.as_view(), name="menu_list"),
@@ -40,4 +40,6 @@ urlpatterns = [
     url(r'^delete_order_view/(?P<pk>\d+)/', views.DeleteOrderView.as_view(), name='delete_order'),
     url(r'^update_order_view/(?P<pk>\d+)/', views.UpdateOrderView.as_view(), name='update_order'),
     url(r'^cart_option_update_view/(?P<pk>\d+)/', views.CartOptionUpdateView.as_view(), name='update_cart_options'),
+    url(r'^register/owner$', views.owner_registration_view, name='owner_registration'),
+    url(r'^create_restaurant/', views.restaurant_creation_view, name='create_restaurant'),
 ]

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        {{ restaurant_form.as_p }}
+        {{ address_form.as_p }}
+        <input type="submit" name="Create"/>
+    </form>
+{% endblock %}
