@@ -15,5 +15,9 @@
             {% csrf_token %}
             <button type="submit">Update</button>
         </form>
+        <form method="get" action="{% url 'update_cart_options' order.id %}">
+            {% csrf_token %}
+            <button type="submit">Cart Options</button>
+        </form>
     {% endfor %}
 {% endblock %}

@@ -83,7 +83,7 @@ class CreateOrderView(CreateView):
     model = Order
     success_url = reverse_lazy("create_order")
     template_name = 'create_order_item.html'
-    fields = ["menu_item", "restaurant", "customer", "instructions"]
+    fields = ["restaurant", "customer", "instructions"]
 
 
 class DeleteOrderView(DeleteView):
@@ -94,8 +94,16 @@ class DeleteOrderView(DeleteView):
 class UpdateOrderView(UpdateView):
     model = Order
     template_name = "update_order_list.html"
-    fields = ["menu_item", "restaurant", "customer", "instructions"]
+    fields = ["restaurant", "customer", "instructions"]
     success_url = reverse_lazy('order_list')
+
+
+class CartOptionUpdateView(UpdateView):
+    model = CartOption
+    template_name = "update_order_list.html"
+    fields = ["menu_item", "order", "count"]
+    success_url = reverse_lazy('order_list')
+
 
 
 
