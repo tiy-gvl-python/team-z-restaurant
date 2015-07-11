@@ -3,7 +3,7 @@
 {% block body %}
     <form method=POST>
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <input type="submit" name="login"/>
         <input type="hidden" name="redirect" value="{% url "home" %}"/>
     </form>

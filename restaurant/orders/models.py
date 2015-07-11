@@ -2,77 +2,76 @@ from django.contrib.auth.models import User
 
 from django.db import models
 
-# Create your models here.
+# Constants
+STATE_CHOICES = (('AL','Alabama'),
+                ('AK','Alaska'),
+                ('AZ','Arizona'),
+                ('AR','Arkansas'),
+                ('CA','California'),
+                ('CO','Colorado'),
+                ('CT','Connecticut'),
+                ('DE','Delaware'),
+                ('DC','District of Columbia'),
+                ('FL','Florida'),
+                ('GA','Georgia'),
+                ('HI','Hawaii'),
+                ('ID','Idaho'),
+                ('IL','Illinois'),
+                ('IN','Indiana'),
+                ('IA','Iowa'),
+                ('KS','Kansas'),
+                ('KY','Kentucky'),
+                ('LA','Louisiana'),
+                ('ME','Maine'),
+                ('MD','Maryland'),
+                ('MA','Massachusetts'),
+                ('MI','Michigan'),
+                ('MN','Minnesota'),
+                ('MS','Mississippi'),
+                ('MO','Missouri'),
+                ('MT','Montana'),
+                ('NE','Nebraska'),
+                ('NV','Nevada'),
+                ('NH','New Hampshire'),
+                ('NJ','New Jersey'),
+                ('NM','New Mexico'),
+                ('NY','New York'),
+                ('NC','North Carolina'),
+                ('ND','North Dakota'),
+                ('OH','Ohio'),
+                ('OK','Oklahoma'),
+                ('OR','Oregon'),
+                ('PA','Pennsylvania'),
+                ('RI','Rhode Island'),
+                ('SC','South Carolina'),
+                ('SD','South Dakota'),
+                ('TN','Tennessee'),
+                ('TX','Texas'),
+                ('UT','Utah'),
+                ('VT','Vermont'),
+                ('VA','Virginia'),
+                ('WA','Washington'),
+                ('WV','West Virginia'),
+                ('WI','Wisconsin'),
+                ('WY','Wyoming'))
+
+MENU_CHOICES = (
+                ('App', 'Appetizer'),
+                ('Ent', 'Entree'),
+                ('Des', 'Desert'),
+                ('Dri', 'Drink')
+    )
+
+# Models
 
 class MenuItem(models.Model):
-    APPETIZER = 'App'
-    ENTREE = 'Ent'
-    DESERT = 'Des'
-    DRINK = 'Dri'
-    MENU_CHOICES = (
-        (APPETIZER, 'Appetizer'),
-        (ENTREE, 'Entree'),
-        (DESERT, 'Desert'),
-        (DRINK, 'Drink')
-    )
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    menu_parts = models.CharField(max_length=20, choices=MENU_CHOICES, default=APPETIZER, blank=True)
+    menu_parts = models.CharField(max_length=20, choices=MENU_CHOICES, default='App', blank=True)
 
 
 class Address(models.Model):
-    STATE_CHOICES = (('AL','Alabama'),
-                    ('AK','Alaska'),
-                    ('AZ','Arizona'),
-                    ('AR','Arkansas'),
-                    ('CA','California'),
-                    ('CO','Colorado'),
-                    ('CT','Connecticut'),
-                    ('DE','Delaware'),
-                    ('DC','District of Columbia'),
-                    ('FL','Florida'),
-                    ('GA','Georgia'),
-                    ('HI','Hawaii'),
-                    ('ID','Idaho'),
-                    ('IL','Illinois'),
-                    ('IN','Indiana'),
-                    ('IA','Iowa'),
-                    ('KS','Kansas'),
-                    ('KY','Kentucky'),
-                    ('LA','Louisiana'),
-                    ('ME','Maine'),
-                    ('MD','Maryland'),
-                    ('MA','Massachusetts'),
-                    ('MI','Michigan'),
-                    ('MN','Minnesota'),
-                    ('MS','Mississippi'),
-                    ('MO','Missouri'),
-                    ('MT','Montana'),
-                    ('NE','Nebraska'),
-                    ('NV','Nevada'),
-                    ('NH','New Hampshire'),
-                    ('NJ','New Jersey'),
-                    ('NM','New Mexico'),
-                    ('NY','New York'),
-                    ('NC','North Carolina'),
-                    ('ND','North Dakota'),
-                    ('OH','Ohio'),
-                    ('OK','Oklahoma'),
-                    ('OR','Oregon'),
-                    ('PA','Pennsylvania'),
-                    ('RI','Rhode Island'),
-                    ('SC','South Carolina'),
-                    ('SD','South Dakota'),
-                    ('TN','Tennessee'),
-                    ('TX','Texas'),
-                    ('UT','Utah'),
-                    ('VT','Vermont'),
-                    ('VA','Virginia'),
-                    ('WA','Washington'),
-                    ('WV','West Virginia'),
-                    ('WI','Wisconsin'),
-                    ('WY','Wyoming'))
     line_1 = models.CharField(max_length=100)
     line_2 = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=20)
