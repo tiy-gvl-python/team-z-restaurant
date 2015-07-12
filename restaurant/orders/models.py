@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
-
 from django.db import models
+from django.dispatch import receiver
+from django_cryptocoin.models import CryptoOrder
+from django_cryptocoin.signals import after_pay_confirmation
 
 # Constants
 ORDER_STATES = (('In Cart', 'In Cart'),
@@ -128,6 +130,19 @@ class Order(models.Model):
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
     status = models.CharField(choices=ORDER_STATES, max_length=50, default='In Cart')
+
+
+    crypto_order = models.OneToOneField(CryptoOrder, related_name='order')
+
+
+@receiver(after_pay_confirmation)
+def submit_order(sender, **kwargs):
+    Order(
+        menu_item=,
+        restaurant=,
+        instructions=,
+        customer=
+    ).save()
 
     def __str__(self):
         return "{}: {}".format(self.id, self.customer.name)
