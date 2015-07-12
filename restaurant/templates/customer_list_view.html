@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
+{% load bootstrap3 %}
+
 {% block title %}
     <h3>Customer List</h3>
 {% endblock %}
 
-{% block body %}
+{% block content %}
     {% for customer in object_list %}
         <a href="{% url 'customer_detail' customer.pk %}">{{ customer.name }}</a>
     {% endfor %}

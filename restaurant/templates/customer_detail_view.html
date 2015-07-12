@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
+{% load bootstrap3 %}
+
 {% block title %}
     <h3>Customer Details</h3>
 {% endblock %}
 
-{% block body %}
+{% block content %}
     <h1>{{ object.name }}</h1>
     <p>{{ object.email }}</p>
     <p>{{ object.telephone }}</p>

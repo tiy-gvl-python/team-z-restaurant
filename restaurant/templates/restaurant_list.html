@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
+{% load bootstrap3 %}
+
 {% block title %}
     <h3>Restaurants</h3>
 {% endblock %}
 
-{% block body %}
+{% block content %}
     {% for restaurant in object_list %}
         <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.name }}</a>
         <form method="get" action="{% url 'update_restaurant' restaurant.pk %}">
