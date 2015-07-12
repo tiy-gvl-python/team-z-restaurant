@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Constants
+ORDER_STATES = (('In Cart', 'In Cart'),
+                ('Payment Received', 'Payment Received'),
+                ('Being Cooked', 'Being Cooked'),
+                ('Out for Delivery', 'Out for Delivery'),
+                ('Delivered', 'Delivered'))
+
 STATE_CHOICES = (('AL','Alabama'),
                 ('AK','Alaska'),
                 ('AZ','Arizona'),
@@ -121,6 +127,7 @@ class Order(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
+    status = models.CharField(choices=ORDER_STATES, max_length=50, default='In Cart')
 
     def __str__(self):
         return "{}: {}".format(self.id, self.customer.name)
