@@ -110,7 +110,10 @@ class CartOptionUpdateView(UpdateView):
     model = CartOption
     template_name = "update_cart_option_view.html"
     fields = ["menu_item", "order", "count"]
-    success_url = reverse_lazy('order_detail')
+    success_url = reverse_lazy('order_list')
+
+    def get_success_url(self):
+        return self.success_url + str(self.object.order.id)
 
 
 class CartOptionCreateView(CreateView):
@@ -119,10 +122,16 @@ class CartOptionCreateView(CreateView):
     fields = ["menu_item", "order", "count"]
     success_url = reverse_lazy('order_list')
 
+    def get_success_url(self):
+        return self.success_url + str(self.object.order.id)
+
 
 class CartOptionDeleteView(DeleteView):
     model = CartOption
-    success_url = reverse_lazy('order_detail')
+    success_url = reverse_lazy('order_list')
+
+    def get_success_url(self):
+        return self.success_url + str(self.object.order.id)
 
 
 @require_owner

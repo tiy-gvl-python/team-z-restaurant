@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+from django.core.urlresolvers import reverse_lazy
 
 from orders import views
 
