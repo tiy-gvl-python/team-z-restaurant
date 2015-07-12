@@ -14,10 +14,8 @@
     {% if object.address.line_2 %}
         <p>{{ object.address.line_2 }}</p>
     {% endif %}
-    <p>{{ object.address.city }}</p>
-    <p>{{ object.address.street }}</p>
-    <p>{{ object.address.zipcode }}</p>
+    <p>{{ object.address.city }}, {{ object.address.state }} {{ object.address.zipcode }}
     {% if object.address.plus_4 %}
-        <p>{{ object.address.plus_4 }}</p>
-    {% endif %}
+        -{{ object.address.plus_4 }}
+    {% endif %}</p>
 {% endblock %}

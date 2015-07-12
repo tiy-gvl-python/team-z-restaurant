@@ -9,12 +9,14 @@
 {% block content %}
 
 <h3>Bonjour {{ user.username }}!</h3>
-
-<form role="form" class="form-horizontal" method="post">
-    {% csrf_token %}
-    {% bootstrap_form form layout="horizontal" %}
-   <input type="submit" value="Create" />
-</form>
+<div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding: 15px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        {# bootstrap_form form layout="horizontal" #}
+       <input type="submit" value="Create" />
+    </form>
+</div>
 {% endblock %}
 
 
