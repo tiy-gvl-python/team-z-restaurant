@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='CartOption',
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
-                ('count', models.IntegerField(default=1)),
+                ('quantity', models.IntegerField(default=1)),
                 ('menu_item', models.ForeignKey(to='orders.MenuItem')),
                 ('order', models.ForeignKey(to='orders.Order')),
             ],

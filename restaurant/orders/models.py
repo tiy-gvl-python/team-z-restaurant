@@ -56,10 +56,10 @@ STATE_CHOICES = (('AL','Alabama'),
                 ('WY','Wyoming'))
 
 MENU_CHOICES = (
-                ('App', 'Appetizer'),
-                ('Ent', 'Entree'),
-                ('Des', 'Desert'),
-                ('Dri', 'Drink')
+                ('Appetizer', 'Appetizer'),
+                ('Entree', 'Entree'),
+                ('Desert', 'Desert'),
+                ('Drink', 'Drink')
     )
 
 # Models
@@ -70,14 +70,20 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     menu_parts = models.CharField(max_length=20, choices=MENU_CHOICES, default='App', blank=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Address(models.Model):
     line_1 = models.CharField(max_length=100)
     line_2 = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=20)
-    state = models.CharField(max_length=2, choices=STATE_CHOICES, blank=True, default='AL')
+    state = models.CharField(max_length=2, choices=STATE_CHOICES)
     zipcode = models.CharField(max_length=5)
     plus_4 = models.CharField(max_length=4, blank=True)
+
+    def __str__(self):
+        return "{}\n{}, {} {}".format(self.line_1, self.city, self.city, self.state, self.zipcode)
 
 
 class Customer(models.Model):
@@ -90,10 +96,14 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
+
 class Owner(models.Model):
     name = models.CharField(max_length=40)
     telephone = models.CharField(max_length=10)
     user = models.OneToOneField(User)
+
+    def __str__(self):
+        return self.name
 
 
 class Restaurant(models.Model):
@@ -102,6 +112,9 @@ class Restaurant(models.Model):
     address = models.OneToOneField(Address)
     telephone = models.CharField(max_length=10)
 
+    def __str__(self):
+        return self.name
+
 
 class Order(models.Model):
     menu_item = models.ManyToManyField(MenuItem, through="CartOption")
@@ -109,8 +122,14 @@ class Order(models.Model):
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
 
+    def __str__(self):
+        return "{}: {}".format(self.id, self.customer.name)
+
 
 class CartOption(models.Model):
     menu_item = models.ForeignKey(MenuItem)
     order = models.ForeignKey(Order)
-    count = models.IntegerField(default=1)
+    quantity = models.IntegerField(default=1)
+
+    def __str__(self):
+        return "Order: {}; {} {}".format(self.order.id, self.quantity, self.menu_item.title)

@@ -116,7 +116,7 @@ class UpdateOrderView(UpdateView):
 class CartOptionUpdateView(UpdateView):
     model = CartOption
     template_name = "update_cart_option_view.html"
-    fields = ["menu_item", "order", "count"]
+    fields = ["menu_item", "order", "quantity"]
     success_url = reverse_lazy('order_list')
 
     def get_success_url(self):
@@ -126,7 +126,7 @@ class CartOptionUpdateView(UpdateView):
 class CartOptionCreateView(CreateView):
     model = CartOption
     template_name = "create_cart_option_view.html"
-    fields = ["menu_item", "order", "count"]
+    fields = ["menu_item", "order", "quantity"]
     success_url = reverse_lazy('order_list')
 
     def get_success_url(self):

@@ -6,14 +6,21 @@
 
 {% block body %}
     {% for food in object_list %}
-        <a href="{% url 'menu_detail' food.pk %}">{{ food.title }}</a>
-        <form method="POST" action="{% url 'delete_menu_item' food.pk %}">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-        </form>
-        <form method="GET" action="{% url 'update_menu_item' food.pk %}">
-            {% csrf_token %}
-            <button type="submit">Update</button>
-        </form>
+        <div>
+            <h4><a href="{% url 'menu_detail' food.pk %}">{{ food.title }}</a></h4>
+            <p>{{ food.description }}</p>
+            <p>${{ food.cost }}</p>
+            <p>{{ food.menu_parts }}</p>
+            {% if user.owner %}
+            <form method="POST" action="{% url 'delete_menu_item' food.pk %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+            <form method="GET" action="{% url 'update_menu_item' food.pk %}">
+                {% csrf_token %}
+                <button type="submit">Update</button>
+            </form>
+        </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
