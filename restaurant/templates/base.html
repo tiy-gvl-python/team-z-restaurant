@@ -6,45 +6,69 @@
 
 {% block bootstrap3_content %}
 
-    <div class="container">
-        <h1>
+    <style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        width: 100px;
+        font-weight: bold;
+        color: white;
+        background-color: black;
+        text-align: center;
+        padding: 4px;
+        margin: 3px;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-radius: 4px;
+    }
+
+    nav {
+         text-align: center;
+    }
+    nav ul {
+         display: inline-block;
+    }
+    </style>
             {% block title %}Restaurant{% endblock %}
-
-        </h1>
-
-        <p>
-            <a href="{% url "home" %}">Home</a>
-            <a href="{% url 'menu_list' %}">Menu</a>
+    <nav>
+        <ul>
+            <li><a href="{% url "home" %}">Home</a></li>
+            <li><a href="{% url 'menu_list' %}">Menu</a></li>
             {% if user.username %}
-                <a href="{% url 'logout' %}">Logout</a>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'register' %}">Register</a>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
             {% if user.owner %}
-                <a href="{% url 'create_menu_item' %}">Update-Menu</a>
-                <a href="{% url 'create_restaurant' %}">Create Restaurant</a>
-                <a href="{% url 'owner_registration' %}">Create Owner</a>
-                <a href="{% url 'customer_list' %}">Customer List</a>
+                <li><a href="{% url 'create_menu_item' %}">Update Menu</a></li>
+                <li><a href="{% url 'create_restaurant' %}">Create Restaurant</a></li>
+                <li><a href="{% url 'owner_registration' %}">Create Owner</a></li>
+                <li><a href="{% url 'customer_list' %}">Customer List</a></li>
             {% endif %}
-            <a href="{% url 'order_list' %}">Order-List</a>
-            <a href="{% url 'create_order' %}">Create-Order</a>
+            <li><a href="{% url 'order_list' %}">Order List</a></li>
+            <li><a href="{% url 'create_order' %}">Create Order</a></li>
             {% if user.customer %}
-                <a href="{% url 'customer_profile' %}">Profile</a>
+                <li><a href="{% url 'customer_profile' %}">Profile</a></li>
             {% endif %}
-        </p>
-
+        </ul>
+    </nav>
         {% bootstrap_messages %}
 
         {% block content %}(no content){% endblock %}
-    </div>
 
 {% endblock %}
 
 {% block body %}
 {% endblock %}
-
-
-</body>
-</html>
 
