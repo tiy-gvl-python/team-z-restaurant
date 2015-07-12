@@ -30,12 +30,12 @@ class CreateMenuItemView(RequireOwnerMixin, CreateView):
     fields = ["title", "description", "price", "menu_parts"]
 
 
-class DeleteMenuItemView(DeleteView):
+class DeleteMenuItemView(RequireOwnerMixin, DeleteView):
     model = MenuItem
     success_url = reverse_lazy('menu_list')
 
 
-class UpdateMenuItemView(UpdateView):
+class UpdateMenuItemView(RequireOwnerMixin, UpdateView):
     model = MenuItem
     template_name = "update_menu_item.html"
     fields = ["title", "description", "price", "menu_parts"]
@@ -84,7 +84,7 @@ def registration_view(request):
                               context_instance=RequestContext(request))
 
 
-class OrderListView(ListView):
+class OrderListView(RequireOwnerMixin, ListView):
     model = Order
     template_name = 'order_list_view.html'
 
@@ -163,6 +163,7 @@ def owner_registration_view(request):
                               context_instance=RequestContext(request))
 
 
+@require_owner
 def restaurant_creation_view(request):
     context = {"restaurant_form": RestaurantForm, "address_form": AddressForm, "errors": []}
     if request.POST:
@@ -192,29 +193,30 @@ class CustomerProfileView(ProvideCurrentCustomer, UpdateView):
     success_url = reverse_lazy("customer_profile")
 
 
-class CustomerListView(ListView):
+class CustomerListView(RequireOwnerMixin, ListView):
     model = Customer
     template_name = "customer_list_view.html"
 
 
-class CustomerDetailView(DetailView):
+class CustomerDetailView(RequireOwnerMixin, DetailView):
     model = Customer
     template_name = "customer_detail_view.html"
 
 
-class OwnerListView(ListView):
+class OwnerListView(RequireOwnerMixin, ListView):
     model = Owner
     template_name = "owner_list.html"
 
 
-class UpdateOwnerView(UpdateView):
+
+class UpdateOwnerView(RequireOwnerMixin, UpdateView):
     model = Owner
     template_name = "update_owner.html"
     fields = ["name", "telephone", "email"]
     success_url = reverse_lazy('owner_list')
 
 
-class OwnerDetailView(DetailView):
+class OwnerDetailView(RequireOwnerMixin, DetailView):
     model = Owner
     template_name = "owner_detail.html"
 
@@ -224,7 +226,7 @@ class RestaurantListView(ListView):
     template_name = "restaurant_list.html"
 
 
-class UpdateRestaurantView(UpdateView):
+class UpdateRestaurantView(RequireOwnerMixin, UpdateView):
     model = Restaurant
     template_name = "update_restaurant.html"
     fields = ["name", "telephone", "email"]
