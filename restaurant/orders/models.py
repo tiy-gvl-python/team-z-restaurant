@@ -58,7 +58,7 @@ STATE_CHOICES = (('AL','Alabama'),
 MENU_CHOICES = (
                 ('Appetizer', 'Appetizer'),
                 ('Entree', 'Entree'),
-                ('Desert', 'Desert'),
+                ('Dessert', 'Dessert'),
                 ('Drink', 'Drink')
     )
 
