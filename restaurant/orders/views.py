@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
 from .models import MenuItem, Order, CartOption, Customer, Owner, Restaurant
-from orders.decorators import require_owner, provide_customer
+from orders.decorators import require_owner, provide_customer, require_customer
 from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
 
 
@@ -21,6 +21,19 @@ class RequireOwnerMixin:
     def as_view(cls, **initkwargs):
         view = super(RequireOwnerMixin, cls).as_view(**initkwargs)
         return require_owner(view)
+
+class RequireCustomerMixin:
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(RequireCustomerMixin, cls).as_view(**initkwargs)
+        return require_customer(view)
+
+class AddCustomerToFormMixin:
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.customer = self.request.user.customer
+        return super(AddCustomerToFormMixin, self).form_valid(form)
+
 
 
 class CreateMenuItemView(RequireOwnerMixin, CreateView):
@@ -94,11 +107,14 @@ class OrderDetailView(DetailView):
     template_name = 'order_detail_view.html'
 
 
-class CreateOrderView(CreateView):
+class CreateOrderView(RequireCustomerMixin, AddCustomerToFormMixin, CreateView):
     model = Order
-    success_url = reverse_lazy("create_order")
+    success_url = reverse_lazy("order_list")
     template_name = 'create_order_item.html'
-    fields = ["restaurant", "customer", "instructions"]
+    fields = ["restaurant", "instructions"]
+
+    def get_success_url(self):
+        return self.success_url + str(self.object.id)
 
 
 class DeleteOrderView(DeleteView):
