@@ -4,9 +4,16 @@ from django.shortcuts import render, render_to_response, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
-from .models import MenuItem, Order, CartOption
-from orders.decorators import require_owner
+from .models import MenuItem, Order, CartOption, Customer
+from orders.decorators import require_owner, provide_customer
 from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
+
+
+class ProvideCurrentCustomer:
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(ProvideCurrentCustomer, cls).as_view(**initkwargs)
+        return provide_customer(view)
 
 
 class RequireOwnerMixin:
@@ -175,3 +182,21 @@ def restaurant_creation_view(request):
             restaurant.save()
     return render_to_response('restaurant_creation.html', context=context,
                               context_instance=RequestContext(request))
+
+
+class CustomerProfileView(ProvideCurrentCustomer, UpdateView):
+    """Actually an update view"""
+    model = Customer
+    template_name = "customer_profile.html"
+    fields = ["name", "email", "telephone"]
+    success_url = reverse_lazy("customer_profile")
+
+
+class CustomerListView(ListView):
+    model = Customer
+    template_name = "customer_list_view.html"
+
+
+class CustomerDetailView(DetailView):
+    model = Customer
+    template_name = "customer_detail_view.html"

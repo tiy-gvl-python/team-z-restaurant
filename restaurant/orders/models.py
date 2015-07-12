@@ -87,6 +87,8 @@ class Customer(models.Model):
     telephone = models.CharField(max_length=10)
     user = models.OneToOneField(User)
 
+    def __str__(self):
+        return self.name
 
 class Owner(models.Model):
     name = models.CharField(max_length=40)

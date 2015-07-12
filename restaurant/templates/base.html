@@ -18,9 +18,13 @@
     <a href="{% url 'create_menu_item' %}">Update-Menu</a>
     <a href="{% url 'create_restaurant' %}">Create Restaurant</a>
     <a href="{% url 'owner_registration' %}">Create Owner</a>
+    <a href="{% url 'customer_list' %}">Customer List</a>
 {% endif %}
 <a href="{% url 'order_list' %}">Order-List</a>
 <a href="{% url 'create_order' %}">Create-Order</a>
+{% if user.customer %}
+    <a href="{% url 'customer_profile' %}">Profile</a>
+{% endif %}
 
 {% block title %}
     <h3>Welcome!</h3>

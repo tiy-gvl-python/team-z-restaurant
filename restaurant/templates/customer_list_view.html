@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <h3>Customer List</h3>
+{% endblock %}
+
+{% block body %}
+    {% for customer in object_list %}
+        <a href="{% url 'customer_detail' customer.pk %}">{{ customer.name }}</a>
+    {% endfor %}
+{% endblock %}

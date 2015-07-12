@@ -45,4 +45,7 @@ urlpatterns = [
     url(r'^cart_option_delete_view/(?P<pk>\d+)/', views.CartOptionDeleteView.as_view(), name='delete_cart_options'),
     url(r'^register/owner$', views.owner_registration_view, name='owner_registration'),
     url(r'^create_restaurant/', views.restaurant_creation_view, name='create_restaurant'),
+    url(r'^profile/', views.CustomerProfileView.as_view(), name='customer_profile'),
+    url(r'^user_list/$', views.CustomerListView.as_view(), name='customer_list'),
+    url(r'^user_list/(?P<pk>\d+)/$', views.CustomerDetailView.as_view(), name='customer_detail')
 ]
