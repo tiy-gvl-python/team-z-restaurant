@@ -298,7 +298,7 @@ def payment_view(request, pk):
             form.instance.crypto_order = crypto_order
             form.instance.customer = order.customer
             form.save()
-            return redirect(cryptocoin.process, addr=crypto_order.addr)
+            return redirect(cryptocoin.process, id=crypto_order.id)
     else:
         form = OrderPaymentForm(initial={"id": order.id, "restaurant": order.restaurant})
     context = {'form': form, 'crypto_prices': crypto_prices, 'order': order}
