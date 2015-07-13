@@ -5,10 +5,9 @@
 {% block content %}
     <div style="text-align: center; padding: 50px;">
         <table class="table-bordered" align="center">
-        <th>Customers</th><th>Phone</th>
+        <th>Customers</th>
         {% for customer in object_list %}
            <tr><td><a href="{% url 'customer_detail' customer.pk %}">{{ customer.name }}</a></td>
-           <td>{{ customer.telephone }}</td></tr>
         {% endfor %}
         </table>
     </div>
