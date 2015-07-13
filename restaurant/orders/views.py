@@ -266,7 +266,7 @@ class OwnerListView(RequireOwnerMixin, ListView):
 class UpdateOwnerView(RequireOwnerMixin, UpdateView):
     model = Owner
     template_name = "update_owner.html"
-    fields = ["name", "telephone", "email"]
+    fields = ["name", "telephone"]
     success_url = reverse_lazy('owner_list')
 
 
@@ -283,8 +283,8 @@ class RestaurantListView(ListView):
 class UpdateRestaurantView(RequireOwnerMixin, UpdateView):
     model = Restaurant
     template_name = "update_restaurant.html"
-    fields = ["name", "telephone", "email"]
-    success_url = reverse_lazy('owner_list')
+    fields = ["name", "telephone", "owner"]
+    success_url = reverse_lazy('restaurant_list')
 
 
 class RestaurantDetailView(DetailView):
