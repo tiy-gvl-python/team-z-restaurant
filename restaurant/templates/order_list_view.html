@@ -8,6 +8,7 @@
 
 {% block content %}
     {% for order in object_list %}
+        {% if request.user.owner or request.user.customer.id == order.customer.id%}
         <a href="{% url 'order_detail' pk=order.id%}">{{ order.id }}</a>
         <form method="POST" action="{% url 'delete_order' order.id %}">
             {% csrf_token %}
@@ -17,5 +18,6 @@
             {% csrf_token %}
             <button type="submit">Update Order Details</button>
         </form>
+        {% endif %}
     {% endfor %}
 {% endblock %}

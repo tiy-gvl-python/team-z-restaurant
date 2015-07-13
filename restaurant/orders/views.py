@@ -124,7 +124,7 @@ def registration_view(request):
                               context_instance=RequestContext(request))
 
 
-class OrderListView(RequireOwnerMixin, ListView):
+class OrderListView(ListView):
     model = Order
     template_name = 'order_list_view.html'
 
