@@ -9,7 +9,8 @@
         {% csrf_token %}
         {{ restaurant_form.as_p }}
         {{ address_form.as_p }}
-        <input type="submit" name="Create"/>
+{#        <input type="submit" name="Create"/>#}
+        <button class="btn-danger" name="Create" type="submit" name="Register">Submit</button>
     </form>
     </div>
 {% endblock %}

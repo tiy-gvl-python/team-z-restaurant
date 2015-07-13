@@ -317,3 +317,8 @@ def payment_view(request, pk):
     context = {'form': form, 'crypto_prices': crypto_prices, 'order': order}
     return render_to_response('payment.html', context=context,
                               context_instance=RequestContext(request))
+
+@require_owner
+def management_options_view(request):
+    return render_to_response('management_options.html', context_instance=RequestContext(request))
+

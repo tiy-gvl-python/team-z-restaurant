@@ -55,5 +55,6 @@ urlpatterns = [
     url(r'^restaurants/(?P<pk>\d+)/', views.RestaurantDetailView.as_view(), name="restaurant_detail"),
     url(r'^restaurants/update/(?P<pk>\d+)/', views.UpdateRestaurantView.as_view(), name="update_restaurant"),
     url(r'^orders/(?P<pk>\d+)/payment', views.payment_view, name="payment"),
-    url(r'^payment_processing', include(cryptocoin),name="cryptocoin")
+    url(r'^payment_processing', include(cryptocoin),name="cryptocoin"),
+    url(r'^management_options/$', views.management_options_view, name='management_options'),
 ]

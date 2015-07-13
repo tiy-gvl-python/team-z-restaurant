@@ -57,15 +57,14 @@
                 <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
             {% if user.owner %}
-                <li><a href="{% url 'create_menu_item' %}">Update Menu</a></li>
-                <li><a href="{% url 'create_restaurant' %}">Create Restaurant</a></li>
-                <li><a href="{% url 'owner_registration' %}">Create Owner</a></li>
-                <li><a href="{% url 'customer_list' %}">Customer List</a></li>
+                <li><a href="{% url 'management_options' %}">Management Options</a></li>
             {% endif %}
-            <li><a href="{% url 'order_list' %}">Order List</a></li>
+            {% if not user.owner %}
             <li><a href="{% url 'create_order' %}">Create Order</a></li>
+            {% endif %}
             {% if user.customer %}
                 <li><a href="{% url 'customer_profile' %}">Profile</a></li>
+                <li><a href="{% url 'order_list' %}">Order List</a></li>
             {% endif %}
         </ul>
     </nav>
