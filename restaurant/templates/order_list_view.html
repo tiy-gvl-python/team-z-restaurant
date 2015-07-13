@@ -12,6 +12,11 @@
             <div>
                 <a href="{% url 'order_detail' pk=order.id%}">{{ order.id }}: ${{ order.total_cost }} - {{ order.status }}</a>
             </div>
+            {% if user.owner %}
+                <div>
+                    Store: <a href="{% url "restaurant_detail" order.restaurant.id %}">{{ order.restaurant.name }}</a>
+                </div>
+            {% endif %}
             <form method="POST" action="{% url 'delete_order' order.id %}">
                 {% csrf_token %}
                 <button type="submit">Delete</button>
