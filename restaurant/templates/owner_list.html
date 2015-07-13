@@ -8,6 +8,7 @@
 
 {% block content %}
     <div style="text-align: center; padding: 50px;">
+        <hr />
         <h2>Owners</h2>
         {% for owner in object_list %}
             <a href="{% url 'owner_detail' owner.pk %}">{{ owner.name }}</a>

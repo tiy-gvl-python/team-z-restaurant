@@ -280,3 +280,8 @@ class UpdateRestaurantView(RequireOwnerMixin, UpdateView):
 class RestaurantDetailView(DetailView):
     model = Restaurant
     template_name = "restaurant_detail.html"
+
+
+@require_owner
+def management_options_view(request):
+    return render_to_response('management_options.html', context_instance=RequestContext(request))
