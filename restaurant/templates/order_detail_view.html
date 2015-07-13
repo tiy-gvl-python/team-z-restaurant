@@ -28,12 +28,12 @@
            <p style="padding-bottom: 25px"></p>
 
         {% endfor %}
+        <p style="padding-bottom: 20px; font-size: larger; "><b>Total Cost: {{ object.total_cost }}</b></p>
         {% if object.cartoption_set.all %}
             <form method="get" action="{% url 'payment' object.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn-warning btn-lg">Checkout</button>
             </form>
-        <p>Total Cost: </p>
         {% endif %}
     </div>
 {% endblock %}
