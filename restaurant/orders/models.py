@@ -135,6 +135,10 @@ class Order(models.Model):
     def __str__(self):
         return "{}: {} - {}".format(self.id, self.customer.name, self.status)
 
+    @property
+    def total_cost(self):
+        return sum([cart_option.price for cart_option in self.cartoption_set.all()])
+
 
 @receiver(after_pay_confirmation)
 def submit_order(sender, **kwargs):
@@ -150,3 +154,7 @@ class CartOption(models.Model):
 
     def __str__(self):
         return "Order: {}; {} {}".format(self.order.id, self.quantity, self.menu_item.title)
+
+    @property
+    def price(self):
+        return self.menu_item.price * self.quantity
