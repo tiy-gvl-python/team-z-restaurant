@@ -275,7 +275,7 @@ class RestaurantDetailView(DetailView):
     template_name = "restaurant_detail.html"
 
 
-#@require_customer
+@require_customer
 def payment_view(request, pk):
     order = Order.objects.filter(id=pk)
     if not order or order.get().customer.user.id != request.user.id:
@@ -304,7 +304,7 @@ def payment_view(request, pk):
             form.save()
             return redirect(cryptocoin.process, addr=crypto_order.addr)
     else:
-        form = OrderPaymentForm(initial={"id": order.id})
+        form = OrderPaymentForm(initial={"id": order.id, "restaurant": order.restaurant})
     context = {'form': form, 'crypto_prices': crypto_prices, 'order': order}
     return render_to_response('payment.html', context=context,
                               context_instance=RequestContext(request))

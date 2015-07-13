@@ -32,7 +32,7 @@ class RestaurantForm(forms.ModelForm):
 
 
 class OrderPaymentForm(forms.ModelForm):
-    currency = forms.CharField(max_length=50, widget=forms.Select(choices=CRYPTO_COINS.items()))
+    currency = forms.CharField(max_length=50, widget=forms.HiddenInput(), initial="btc")
 
     class Meta:
         model = Order
