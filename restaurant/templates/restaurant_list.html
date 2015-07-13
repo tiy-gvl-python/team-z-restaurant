@@ -5,6 +5,9 @@
 
 
 {% block content %}
+    <div style="text-align: center; padding: 50px;">
+        <hr />
+        <h2>Restaurants</h2>
     {% for restaurant in object_list %}
         <a href="{% url 'restaurant_detail' restaurant.pk %}">{{ restaurant.name }}</a>
         <form method="get" action="{% url 'update_restaurant' restaurant.pk %}">
@@ -12,4 +15,7 @@
             <button type="submit">Update</button>
         </form>
     {% endfor %}
+    <hr />
+        <a style="background-color: black; border-radius: 10px; padding: 10px; margin: 15px; color: white; " href="{% url 'owner_registration' %}">Create Owner</a>
+    </div>
 {% endblock %}

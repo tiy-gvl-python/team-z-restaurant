@@ -3,13 +3,15 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <h1>Name: {{ object.name }}</h1>
-    <p>Telephone: {{ object.telephone }}</p>
-    <p>Owner: {{ object.owner.name }}</p>
-    <p>Address:</p>
-    <p> {{ object.address.line_1 }}</p>
-    {% if object.address.line_2 %}
-        <p>{{ object.address.line_2 }}</p>
-    {% endif %}
-    <p>{{ object.address.city }}, {{ object.address.state }} {{ object.address.zipcode }}</p>
+    <div style="text-align: center">
+        <h1>Name: {{ object.name }}</h1>
+        <p>Telephone: {{ object.telephone }}</p>
+        <p>Owner: {{ object.owner.name }}</p>
+        <p>Address:</p>
+        <p> {{ object.address.line_1 }}</p>
+        {% if object.address.line_2 %}
+            <p>{{ object.address.line_2 }}</p>
+        {% endif %}
+        <p>{{ object.address.city }}, {{ object.address.state }} {{ object.address.zipcode }}</p>
+    </div>
 {% endblock %}
