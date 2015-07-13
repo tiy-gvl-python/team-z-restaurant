@@ -70,10 +70,17 @@
     </nav>
         {% bootstrap_messages %}
 
-        {% block content %}(no content){% endblock %}
+        {% block content %}
+            <div></div>
+            <div>
+                Welcome to our Restaurant{% if user.customer %}, {{ user.customer.name }}{% endif %}!  We look forward to receiving your order.
+            </div>
+        {% endblock %}
 
 {% endblock %}
 
 {% block body %}
+
+
 {% endblock %}
 

@@ -14,7 +14,7 @@ class AddressForm(forms.ModelForm):
 
     class Meta:
         model = Address
-        exclude = []
+        exclude = ["zip4"]
 
 
 class OwnerForm(forms.ModelForm):

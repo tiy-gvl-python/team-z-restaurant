@@ -148,7 +148,7 @@ class CreateOrderView(RequireCustomerMixin, AddCustomerToFormMixin, CreateView):
     model = Order
     success_url = reverse_lazy("order_list")
     template_name = 'create_order_item.html'
-    fields = ["restaurant", "instructions"]
+    fields = ["restaurant"]
 
     def get_success_url(self):
         return self.success_url + str(self.object.id)
@@ -179,7 +179,7 @@ class CartOptionUpdateView(UpdateView):
 class CartOptionCreateView(CreateView):
     model = CartOption
     template_name = "create_cart_option_view.html"
-    fields = ["menu_item", "order", "quantity"]
+    fields = ["menu_item" "quantity"]
     success_url = reverse_lazy('order_list')
 
     def get_success_url(self):

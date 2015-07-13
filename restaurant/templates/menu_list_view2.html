@@ -16,12 +16,14 @@
             {% if user.owner %}
                 <th style="font-size: medium; text-align: center">Name</th><th style="font-size: medium; text-align: center">Description</th><th style="font-size: medium; text-align: center">Price</th><th style="font-size: medium; text-align: center">Update</th><th style="font-size: medium; text-align: center">Delete</th>
             {% else %}
-                <th style="font-size: medium; text-align: center">Name</th><th style="font-size: medium; text-align: center">Description</th><th style="font-size: medium; text-align: center">Price</th>
+                <th style="font-size: medium; text-align: center">Name</th><th style="font-size: medium; text-align: center">Price</th>
             {% endif %}
             {% for food in appetizer %}
                 <tr>
                     <td><a href="{% url 'menu_detail' food.pk %}">{{ food.title }}</a></td>
+                    {% if user.owner %}
                     <td><p>{{ food.description }}</p></td>
+                    {% endif %}
                     <td>${{ food.price }}</td>
                     {% if user.owner %}
                     <td><form method="GET" action="{% url 'update_menu_item' food.pk %}">
