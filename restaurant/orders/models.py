@@ -6,6 +6,7 @@ from django_cryptocoin.signals import after_pay_confirmation
 
 # Constants
 ORDER_STATES = (('In Cart', 'In Cart'),
+                ('Submitted', 'Submitted'),
                 ('Payment Received', 'Payment Received'),
                 ('Being Cooked', 'Being Cooked'),
                 ('Out for Delivery', 'Out for Delivery'),

@@ -5,7 +5,12 @@
 {% block content %}
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.restaurant }}
+        <p></p>
+        {% if user.owner %}
+            {{ form.status }}
+        {% endif %}
+        <p></p>
         <input type="submit" value="Update" />
     </form>
 

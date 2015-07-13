@@ -140,7 +140,7 @@ class DeleteOrderView(DeleteView):
 class UpdateOrderView(UpdateView):
     model = Order
     template_name = "update_order_list.html"
-    fields = ["restaurant"]
+    fields = ["restaurant", "status"]
     success_url = reverse_lazy('order_list')
 
 
@@ -285,7 +285,6 @@ def payment_view(request, pk):
         rate = 1
     crypto_prices = {'btc': Decimal(price_usd * rate).quantize(Decimal(10) ** -5, rounding=ROUND_HALF_UP)}
     if request.POST:
-        print("post")
         form = OrderPaymentForm(request.POST)
         if form.is_valid():
             crypto_order = CryptoOrder(
@@ -297,10 +296,12 @@ def payment_view(request, pk):
             crypto_order.save()
             form.instance.crypto_order = crypto_order
             form.instance.customer = order.customer
+            form.instance.id = order.id
+            form.instance.status = "Submitted"
             form.save()
             return redirect(cryptocoin.process, id=crypto_order.id)
     else:
-        form = OrderPaymentForm(initial={"id": order.id, "restaurant": order.restaurant})
+        form = OrderPaymentForm(initial={"restaurant": order.restaurant})
     context = {'form': form, 'crypto_prices': crypto_prices, 'order': order}
     return render_to_response('payment.html', context=context,
                               context_instance=RequestContext(request))

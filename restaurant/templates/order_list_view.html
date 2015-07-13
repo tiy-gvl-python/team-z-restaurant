@@ -8,16 +8,19 @@
 
 {% block content %}
     {% for order in object_list %}
-        {% if request.user.owner or request.user.customer.id == order.customer.id%}
-        <a href="{% url 'order_detail' pk=order.id%}">{{ order.id }}</a>
-        <form method="POST" action="{% url 'delete_order' order.id %}">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-        </form>
-        <form method="get" action="{% url 'update_order' order.id %}">
-            {% csrf_token %}
-            <button type="submit">Update Order Details</button>
-        </form>
+        {% if request.user.owner and order.status != "In Cart" or request.user.customer.id == order.customer.id %}
+            <div>
+                <a href="{% url 'order_detail' pk=order.id%}">{{ order.id }}: ${{ order.total_cost }} - {{ order.status }}</a>
+            </div>
+            <form method="POST" action="{% url 'delete_order' order.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+            <form method="get" action="{% url 'update_order' order.id %}">
+                {% csrf_token %}
+                <button type="submit">Edit</button>
+            </form>
+            <p></p>
         {% endif %}
     {% endfor %}
 {% endblock %}
