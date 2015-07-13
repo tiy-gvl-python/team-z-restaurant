@@ -65,7 +65,7 @@
             {% if user.customer %}
                 <li><a href="{% url 'customer_profile' %}">Profile</a></li>
             {% endif %}
-            {% if user %}
+            {% if user.customer or user.owner %}
                 <li><a href="{% url 'order_list' %}">Order List</a></li>
             {% endif %}
         </ul>
