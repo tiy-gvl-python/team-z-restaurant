@@ -1,8 +1,9 @@
-from time import timezone
 from decimal import Decimal, ROUND_HALF_UP
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import render, render_to_response, redirect
+from django.utils import timezone
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
@@ -10,7 +11,7 @@ from django_cryptocoin.models import CryptoOrder, ExchangeRate
 from django_cryptocoin.settings import CRYPTO_COINS
 from .models import MenuItem, Order, CartOption, Customer, Owner, Restaurant
 from orders.decorators import require_owner, provide_customer, require_customer
-from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
+from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm, OrderPaymentForm
 
 
 class ProvideCurrentCustomer:
@@ -280,3 +281,40 @@ class UpdateRestaurantView(RequireOwnerMixin, UpdateView):
 class RestaurantDetailView(DetailView):
     model = Restaurant
     template_name = "restaurant_detail.html"
+
+
+#@require_customer
+def payment_view(request, pk):
+    order = Order.objects.filter(id=pk)
+    if not order or order.get().customer.user.id != request.user.id:
+        return redirect("home")
+    order = order.get()
+    price_usd = Decimal(sum([cart_option.menu_item.price * cart_option.quantity
+                             for cart_option in order.cartoption_set.all()]))
+    try:
+        rate = ExchangeRate.get_exchange_rate('usd', 'btc')
+    except BaseException as e:
+        rate = 1
+    crypto_prices = {'btc': Decimal(price_usd * rate).quantize(Decimal(10) ** -5, rounding=ROUND_HALF_UP)}
+    if request.POST:
+        print("post")
+        form = OrderPaymentForm(request.POST)
+        if form.is_valid():
+            crypto_order = CryptoOrder(
+                currency=form.cleaned_data['currency'],
+                amount=crypto_prices[form.cleaned_data['currency']],
+                date=timezone.now(),
+                redirect_to=reverse('order_list') + str(order.id)
+            )
+            crypto_order.save()
+            print(3)
+            form.instance.crypto_order = crypto_order
+            print(4)
+            form.save()
+            print(5)
+            return redirect('order_detail')
+    else:
+        form = OrderPaymentForm(initial={"id": order.id})
+    context = {'form': form, 'crypto_prices': crypto_prices, 'order': order}
+    return render_to_response('payment.html', context=context,
+                              context_instance=RequestContext(request))

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h3>Pay for message</h3>
+    <form method="post" class="form-horizontal">
+        {% csrf_token %}
+        {{ form }}
+        <div class="form-group">
+            <div class="controls col-lg-8 col-lg-offset-2">
+                <button type="submit" class="btn btn-default">Pay for message</button>
+                Price:
+                {% for currency, price in crypto_prices.items %}
+                    {{ price }} {{ currency }}{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+
+    <h3>Messages</h3>
+    <hr>
+    {% for message in messages %}
+        <div class="row">
+            <div class="col-md-6">
+                <strong>{{ message.author }}</strong> at {{ message.date|date:"d.m.Y H:i" }}<br>
+                {{ message.text }}
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

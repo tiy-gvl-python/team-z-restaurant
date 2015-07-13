@@ -130,7 +130,7 @@ class Order(models.Model):
     instructions = models.CharField(max_length=100, blank=True)
     customer = models.ForeignKey(Customer)
     status = models.CharField(choices=ORDER_STATES, max_length=50, default='In Cart')
-    crypto_order = models.OneToOneField(CryptoOrder, related_name='order')
+    crypto_order = models.OneToOneField(CryptoOrder, related_name='order', null=True)
 
     def __str__(self):
         return "{}: {} - {}".format(self.id, self.customer.name, self.status)
