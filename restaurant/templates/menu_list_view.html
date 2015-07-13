@@ -8,7 +8,11 @@
 {% block content %}
     <div style="text-align: center; padding: 50px;">
         <table class="table-bordered" align="center">
-            <th>Food</th><th>Description</th><th>Price</th><th>Update</th><th>Delete</th>
+            {% if user.owner %}
+                <th>Food</th><th>Description</th><th>Price</th><th>Update</th><th>Delete</th>
+            {% else %}
+                <th>Food</th><th>Description</th><th>Price</th>
+            {% endif %}
             {% for food in object_list %}
                <tr>
                     <td><a href="{% url 'menu_detail' food.pk %}">{{ food.title }}</a></td>
