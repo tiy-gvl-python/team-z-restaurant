@@ -7,15 +7,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ object.name }}</h1>
-    <p>{{ object.email }}</p>
-    <p>{{ object.telephone }}</p>
-    <p>{{ object.address.line_1 }}</p>
-    {% if object.address.line_2 %}
-        <p>{{ object.address.line_2 }}</p>
-    {% endif %}
-    <p>{{ object.address.city }}, {{ object.address.state }} {{ object.address.zipcode }}
-    {% if object.address.plus_4 %}
-        -{{ object.address.plus_4 }}
-    {% endif %}</p>
+    <div style="text-align: center; padding: 50px">
+        <h1>{{ object.name }}</h1>
+        <p>{{ object.email }}</p>
+        <p>{{ object.telephone }}</p>
+        <p>{{ object.address.line_1 }}</p>
+        {% if object.address.line_2 %}
+            <p>{{ object.address.line_2 }}</p>
+        {% endif %}
+        <p>{{ object.address.city }}, {{ object.address.state }} {{ object.address.zipcode }}
+        {% if object.address.plus_4 %}
+            -{{ object.address.plus_4 }}
+        {% endif %}</p>
+    </div>
 {% endblock %}
