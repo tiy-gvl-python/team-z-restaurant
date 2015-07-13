@@ -1,5 +1,4 @@
 from decimal import Decimal, ROUND_HALF_UP
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import render, render_to_response, redirect
@@ -41,28 +40,11 @@ class AddCustomerToFormMixin:
         return super(AddCustomerToFormMixin, self).form_valid(form)
 
 
-class AddCryptoOrderToFormMixin:
+class AddOrderToFormMixin:
     def form_valid(self, form):
-        price_usd = Decimal(0.1)
-        crypto_prices = {}
-        for currency in CRYPTO_COINS.keys():
-            try:
-                rate = ExchangeRate.get_exchange_rate('usd', currency)
-            except BaseException() as e:
-                rate = 1
-            crypto_prices[currency] = Decimal(price_usd * rate).quantize(Decimal(10) ** -5, rounding=ROUND_HALF_UP)
-
-        crypto_order = CryptoOrder(
-            currency=form.cleaned_data['currency'],
-            amount=crypto_prices[form.cleaned_data['currency']],
-            date=timezone.now(),
-            redirect_to=reverse('order_list')
-        )
-        crypto_order.save()
-        form.instance.crypto_order = crypto_order
-        form.save()
-        return super(AddCryptoOrderToFormMixin, self).form_valid(form)
-
+        obj = form.save(commit=False)
+        obj.order = self.request.user.customer.order_set.all().order_by("-id")[0]
+        return super(AddOrderToFormMixin, self).form_valid(form)
 
 
 class CreateMenuItemView(RequireOwnerMixin, CreateView):
@@ -162,24 +144,24 @@ class DeleteOrderView(DeleteView):
 class UpdateOrderView(UpdateView):
     model = Order
     template_name = "update_order_list.html"
-    fields = ["restaurant", "customer", "instructions"]
+    fields = ["restaurant"]
     success_url = reverse_lazy('order_list')
 
 
-class CartOptionUpdateView(UpdateView):
+class CartOptionUpdateView(AddOrderToFormMixin, UpdateView):
     model = CartOption
     template_name = "update_cart_option_view.html"
-    fields = ["menu_item", "order", "quantity"]
+    fields = ["menu_item", "quantity"]
     success_url = reverse_lazy('order_list')
 
     def get_success_url(self):
         return self.success_url + str(self.object.order.id)
 
 
-class CartOptionCreateView(CreateView):
+class CartOptionCreateView(AddOrderToFormMixin, CreateView):
     model = CartOption
     template_name = "create_cart_option_view.html"
-    fields = ["menu_item" "quantity"]
+    fields = ["menu_item", "quantity"]
     success_url = reverse_lazy('order_list')
 
     def get_success_url(self):

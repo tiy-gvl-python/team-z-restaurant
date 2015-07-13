@@ -7,19 +7,30 @@
 {% endblock %}
 
 {% block content %}
+    {% if object.cartoption_set.all %}
+        <form method="get" action="{% url 'payment' object.id %}">
+                {% csrf_token %}
+                <button type="submit">Checkout</button>
+        </form>
+        <p></p>
+    {% endif %}
    <form method="get" action="{% url 'create_cart_options' %}">
             {% csrf_token %}
             <button type="submit">Add Item</button>
    </form>
+    <p></p>
    {% for cart_option in object.cartoption_set.all %}
-       <div>{{ cart_option.menu_item.title }} {{ cart_option.count }}</div>
+       <div>{{ cart_option.menu_item.title }} - {{ cart_option.quantity }}</div>
+       <p></p>
        <form method="get" action="{% url 'update_cart_options' cart_option.id %}">
                 {% csrf_token %}
                 <button type="submit">Edit Item</button>
        </form>
+       <p></p>
        <form method="POST" action="{% url 'delete_cart_options' cart_option.id %}">
             {% csrf_token %}
             <button type="submit">Delete Item</button>
         </form>
+       <p></p>
    {% endfor %}
 {% endblock %}
