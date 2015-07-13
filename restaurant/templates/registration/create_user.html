@@ -6,8 +6,8 @@
     {% for error in errors %}
         <div>{{ error }}</div>
     {% endfor %}
-    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding: 15px;">
-    <h2>Registration</h2>
+    <h2 style="text-align: center">Registration</h2>
+    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding-top: 17px; padding-bottom: 15px; ">
         <form method=POST>
             {% csrf_token %}
             <p><b>Username:</b> {{ user_form.username }}</p>
