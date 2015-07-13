@@ -138,7 +138,9 @@ class Order(models.Model):
 
 @receiver(after_pay_confirmation)
 def submit_order(sender, **kwargs):
+    print(sender.order)
     sender.order.status = 'Payment Received'
+    sender.order.save()
 
 
 class CartOption(models.Model):

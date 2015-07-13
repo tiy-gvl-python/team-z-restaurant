@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+import django_cryptocoin.urls as cryptocoin
 
 from orders import views
 
@@ -53,5 +54,6 @@ urlpatterns = [
     url(r'^restaurants/$', views.RestaurantListView.as_view(), name="restaurant_list"),
     url(r'^restaurants/(?P<pk>\d+)/', views.RestaurantDetailView.as_view(), name="restaurant_detail"),
     url(r'^restaurants/update/(?P<pk>\d+)/', views.UpdateRestaurantView.as_view(), name="update_restaurant"),
-    url(r'^orders/(?P<pk>\d+)/payment', views.payment_view, name="payment")
+    url(r'^orders/(?P<pk>\d+)/payment', views.payment_view, name="payment"),
+    url(r'^payment_processing', include(cryptocoin),name="cryptocoin")
 ]

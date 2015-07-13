@@ -12,6 +12,7 @@ from django_cryptocoin.settings import CRYPTO_COINS
 from .models import MenuItem, Order, CartOption, Customer, Owner, Restaurant
 from orders.decorators import require_owner, provide_customer, require_customer
 from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm, OrderPaymentForm
+import django_cryptocoin.views as cryptocoin
 
 
 class ProvideCurrentCustomer:
@@ -304,15 +305,13 @@ def payment_view(request, pk):
                 currency=form.cleaned_data['currency'],
                 amount=crypto_prices[form.cleaned_data['currency']],
                 date=timezone.now(),
-                redirect_to=reverse('order_list') + str(order.id)
+                redirect_to='home'
             )
             crypto_order.save()
-            print(3)
             form.instance.crypto_order = crypto_order
-            print(4)
+            form.instance.customer = order.customer
             form.save()
-            print(5)
-            return redirect('order_detail')
+            return redirect(cryptocoin.process, addr=crypto_order.addr)
     else:
         form = OrderPaymentForm(initial={"id": order.id})
     context = {'form': form, 'crypto_prices': crypto_prices, 'order': order}
