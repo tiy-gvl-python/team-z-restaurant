@@ -82,6 +82,14 @@ class UpdateMenuItemView(RequireOwnerMixin, UpdateView):
     success_url = reverse_lazy('menu_list')
 
 
+def MenuListView2(request):
+    app = MenuItem.objects.filter(menu_parts='Appetizer')
+    entree = MenuItem.objects.filter(menu_parts='Entree')
+    des = MenuItem.objects.filter(menu_parts='Dessert')
+    drink = MenuItem.objects.filter(menu_parts='Drink')
+    context = {'appetizer': app, 'entree': entree, 'dessert': des, 'drink': drink}
+    return render_to_response('menu_list_view2.html', context, context_instance=RequestContext(request))
+
 class MenuListView(ListView):
     model = MenuItem
     template_name = 'menu_list_view.html'
