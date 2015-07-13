@@ -2,30 +2,32 @@
 
 {% load bootstrap3 %}
 
-{% block title %}
-    <h3>Order</h3>
-{% endblock %}
 
 {% block content %}
-    {% for order in object_list %}
-        {% if request.user.owner and order.status != "In Cart" or request.user.customer.id == order.customer.id %}
-            <div>
-                <a href="{% url 'order_detail' pk=order.id%}">{{ order.id }}: ${{ order.total_cost }} - {{ order.status }}</a>
-            </div>
-            {% if user.owner %}
+    <div style="text-align: center; padding: 30px">
+        <h2>Order List</h2>
+        <p style="padding-top: 20px"></p>
+        {% for order in object_list %}
+            {% if request.user.owner and order.status != "In Cart" or request.user.customer.id == order.customer.id %}
                 <div>
-                    Store: <a href="{% url "restaurant_detail" order.restaurant.id %}">{{ order.restaurant.name }}</a>
+                    <a href="{% url 'order_detail' pk=order.id%}">{{ order.id }}: ${{ order.total_cost }} - {{ order.status }}</a>
                 </div>
+                {% if user.owner %}
+                    <div>
+                        Store: <a href="{% url "restaurant_detail" order.restaurant.id %}">{{ order.restaurant.name }}</a>
+                    </div>
+                {% endif %}
+                <p></p>
+                <form method="get" action="{% url 'update_order' order.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-success btn-xs">Edit</button>
+                </form>
+                <form method="POST" action="{% url 'delete_order' order.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-danger btn-xs">Delete</button>
+                </form>
+                <p></p>
             {% endif %}
-            <form method="POST" action="{% url 'delete_order' order.id %}">
-                {% csrf_token %}
-                <button type="submit">Delete</button>
-            </form>
-            <form method="get" action="{% url 'update_order' order.id %}">
-                {% csrf_token %}
-                <button type="submit">Edit</button>
-            </form>
-            <p></p>
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

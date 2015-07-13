@@ -9,14 +9,15 @@
         margin: 5px;
     }
     </style>
-
-    <div style="text-align: center; padding-top: 20px;">
-        <form method="GET" action="{% url 'create_menu_item' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success">Add an item</button>
-        </form>
-    </div>
-    <div style="text-align: center; padding-top: 20px;">
+    {% if user.owner %}
+        <div style="text-align: center; padding-top: 35px;">
+            <form method="GET" action="{% url 'create_menu_item' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Add an item</button>
+            </form>
+        </div>
+    {% endif %}
+    <div style="text-align: center; padding-top: 35px;">
         <p style="font-size: x-large">Appetizers</p>
         <table class="table-bordered" align="center">
             {% if user.owner %}
@@ -43,7 +44,7 @@
             {% endfor %}
         </table>
     </div>
-    <div style="text-align: center; padding: 35px;">
+    <div style="text-align: center; padding-top: 35px;">
         <p style="font-size: x-large">Entrees</p>
         <table class="table-bordered" align="center">
             {% if user.owner %}
@@ -68,7 +69,7 @@
             {% endfor %}
         </table>
     </div>
-    <div style="text-align: center; padding: 35px;">
+    <div style="text-align: center; padding-top: 35px; ">
         <p style="font-size: x-large">Desserts</p>
         <table class="table-bordered" align="center">
             {% if user.owner %}
@@ -93,7 +94,7 @@
             {% endfor %}
         </table>
     </div>
-    <div style="text-align: center; padding: 35px;">
+    <div style="text-align: center; padding-top: 35px;">
         <p style="font-size: x-large">Drinks</p>
         <table class="table-bordered" align="center">
             {% if user.owner %}
@@ -118,10 +119,12 @@
             {% endfor %}
         </table>
     </div>
-    <div style="text-align: center; padding: 10px;">
-        <form method="GET" action="{% url 'create_menu_item' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success">Add an item</button>
-        </form>
-    </div>
+    {% if user.owner %}
+        <div style="text-align: center; padding: 30px;">
+            <form method="GET" action="{% url 'create_menu_item' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Add an item</button>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
