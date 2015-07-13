@@ -217,6 +217,7 @@ def restaurant_creation_view(request):
             restaurant = restaurant_form.save(commit=False)
             restaurant.address = address
             restaurant.save()
+            redirect('restaurant_list')
     return render_to_response('restaurant_creation.html', context=context,
                               context_instance=RequestContext(request))
 
