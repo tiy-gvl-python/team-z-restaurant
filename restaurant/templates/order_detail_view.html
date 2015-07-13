@@ -29,11 +29,16 @@
 
         {% endfor %}
         <p style="padding-bottom: 20px; font-size: large; "><b>Total Cost: {{ object.total_cost }}</b></p>
-        {% if object.cartoption_set.all %}
+        {% if object.cartoption_set.all and user.customer %}
             <form method="get" action="{% url 'payment' object.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn-warning btn-lg">Checkout</button>
             </form>
+        {% elif user.owner %}
+           <b>
+            <div>{{ object.customer.name }}</div>
+            <div>{{ object.customer.address.line_1 }}</div>
+            <div>{{ object.customer.address.csv }}</div></b>
         {% endif %}
     </div>
 {% endblock %}

@@ -92,7 +92,11 @@ class Address(models.Model):
     plus_4 = models.CharField(max_length=4, blank=True)
 
     def __str__(self):
-        return "{}\n{}, {} {}".format(self.line_1, self.city, self.city, self.state, self.zipcode)
+        return "{}".format(self.line_1)
+
+    @property
+    def csv(self):
+        return "{}, {} {}".format(self.city, self.state, self.zipcode)
 
 
 class Customer(models.Model):
