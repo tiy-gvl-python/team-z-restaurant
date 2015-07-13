@@ -38,7 +38,12 @@
            <b>
             <div>{{ object.customer.name }}</div>
             <div>{{ object.customer.address.line_1 }}</div>
-            <div>{{ object.customer.address.csv }}</div></b>
+               {% if object.customer.address.line_2 %}
+                    <div>{{ object.customer.address.line_2 }}</div>
+               {% endif %}
+            <div>{{ object.customer.address.csv }}</div>
+           <div></div>
+           <div>Phone: {{ object.customer.telephone }}</div></b>
         {% endif %}
     </div>
 {% endblock %}
