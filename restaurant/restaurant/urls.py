@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^register/$', views.registration_view,
         name="register"),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^menu/$', views.MenuListView.as_view(), name="menu_list"),
+    url(r'^menu/$', views.MenuListView2, name="menu_list"),
     url(r'^menu/(?P<pk>\d+)/$', views.MenuDetailView.as_view(), name='menu_detail'),
     url(r'^$', views.home_view, name="home"),
     url(r'^login/', login, name="login",
