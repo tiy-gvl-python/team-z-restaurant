@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 
-{% block body %}
+{% load bootstrap3 %}
+
+{% block content %}
     {% for error in errors %}
         <div>{{ error }}</div>
     {% endfor %}
-    <form method=POST>
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ customer_form.as_p }}
-        {{ address_form.as_p }}
-        <input type="submit" name="register"/>
-    </form>
+    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding: 15px;">
+    <h2>Registration</h2>
+        <form method=POST>
+            {% csrf_token %}
+            <p><b>Username:</b> {{ user_form.username }}</p>
+            <p><b>Password:</b> {{ user_form.password1 }}</p>
+            <p><b>Confirm Password:</b> {{ user_form.password2 }}</p>
+            {{ customer_form.as_p }}
+            {{ address_form.as_p }}
+            <input type="submit" name="register"/>
+        </form>
+    </div>
 {% endblock %}

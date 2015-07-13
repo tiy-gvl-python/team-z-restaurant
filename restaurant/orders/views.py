@@ -159,6 +159,7 @@ def owner_registration_view(request):
             owner = owner_form.save(commit=False)
             owner.user = user
             owner.save()
+            return redirect("owner_list")
     return render_to_response('owner_registration.html', context=context,
                               context_instance=RequestContext(request))
 

@@ -3,11 +3,13 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <form method=POST >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" name="login"/>
-        <input type="hidden" name="redirect" value="{% url "home" %}"/>
-    </form>
+    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding: 15px;">
+        <form method='POST'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" name="login"/>
+            <input type="hidden" name="redirect" value="{% url "home" %}"/>
+        </form>
+    </div>
     {{ form.name }}
 {% endblock %}

@@ -3,10 +3,16 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ owner_form.as_p }}
-        <input type="submit" name="Register"/>
-    </form>
+    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding: 15px;">
+    <h2>Owner Registration</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <p><b>Username:</b> {{ user_form.username }}</p>
+            <p><b>Password:</b> {{ user_form.password1 }}</p>
+            <p><b>Confirm Password:</b> {{ user_form.password2 }}</p>
+            {{ owner_form.as_p }}
+{#            <input type="submit" name="Register"/>#}
+            <button class="btn-danger" type="submit" name="Register">Submit</button>
+        </form>
+    </div>
 {% endblock %}
