@@ -3,7 +3,8 @@
 {% load bootstrap3 %}
 
 {% block content %}
-    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding: 15px;">
+    <h2 style="text-align: center">Login</h2>
+    <div style="background-color: lightslategray; text-align: center; border-radius: 200px; margin: 25px; padding-top: 16px; padding-bottom: 15px; ">
         <form method='POST'>
             {% csrf_token %}
             {{ form.as_p }}
