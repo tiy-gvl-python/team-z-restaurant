@@ -1,9 +1,13 @@
+from time import timezone
+from decimal import Decimal, ROUND_HALF_UP
 from django.contrib.auth.forms import UserCreationForm
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import render, render_to_response, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.template import RequestContext
+from django_cryptocoin.models import CryptoOrder, ExchangeRate
+from django_cryptocoin.settings import CRYPTO_COINS
 from .models import MenuItem, Order, CartOption, Customer, Owner, Restaurant
 from orders.decorators import require_owner, provide_customer, require_customer
 from orders.forms import CustomerForm, AddressForm, OwnerForm, RestaurantForm
@@ -33,6 +37,29 @@ class AddCustomerToFormMixin:
         obj = form.save(commit=False)
         obj.customer = self.request.user.customer
         return super(AddCustomerToFormMixin, self).form_valid(form)
+
+
+class AddCryptoOrderToFormMixin:
+    def form_valid(self, form):
+        price_usd = Decimal(0.1)
+        crypto_prices = {}
+        for currency in CRYPTO_COINS.keys():
+            try:
+                rate = ExchangeRate.get_exchange_rate('usd', currency)
+            except BaseException() as e:
+                rate = 1
+            crypto_prices[currency] = Decimal(price_usd * rate).quantize(Decimal(10) ** -5, rounding=ROUND_HALF_UP)
+
+        crypto_order = CryptoOrder(
+            currency=form.cleaned_data['currency'],
+            amount=crypto_prices[form.cleaned_data['currency']],
+            date=timezone.now(),
+            redirect_to=reverse('order_list')
+        )
+        crypto_order.save()
+        form.instance.crypto_order = crypto_order
+        form.save()
+        return super(AddCryptoOrderToFormMixin, self).form_valid(form)
 
 
 
