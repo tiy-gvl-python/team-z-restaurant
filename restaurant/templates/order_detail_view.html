@@ -5,7 +5,7 @@
 {% block content %}
     <div style="text-align: center;; padding-top: 50px; ">
         <hr/>
-        <p style="font-size: larger"><b>Status: {{ object.status }}</b></p>
+        <p style="font-size: large"><b>Status: {{ object.status }}</b></p>
         <hr/>
         <div style="padding-top: 30px; ">
         <form method="get" action="{% url 'create_cart_options' %}">
@@ -15,7 +15,7 @@
         </div>
         <p style="padding-bottom: 30px"></p>
         {% for cart_option in object.cartoption_set.all %}
-           <div>{{ cart_option.menu_item.title }} - {{ cart_option.quantity }}</div>
+           <div style="font-size: larger; ">{{ cart_option.menu_item.title }} - {{ cart_option.quantity }}</div>
            <p></p>
            <form method="get" action="{% url 'update_cart_options' cart_option.id %}">
                     {% csrf_token %}
@@ -28,7 +28,7 @@
            <p style="padding-bottom: 25px"></p>
 
         {% endfor %}
-        <p style="padding-bottom: 20px; font-size: larger; "><b>Total Cost: {{ object.total_cost }}</b></p>
+        <p style="padding-bottom: 20px; font-size: large; "><b>Total Cost: {{ object.total_cost }}</b></p>
         {% if object.cartoption_set.all %}
             <form method="get" action="{% url 'payment' object.id %}">
                 {% csrf_token %}
